@@ -15,7 +15,8 @@
     "express": "^4.17.1",
     "fs": "^0.0.1-security",
     "morgan": "^1.10.0",
-    "pg": "^8.6.0"
+    "pg": "^8.6.0",
+    "venom-bot": "^4.2.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.16"
