@@ -1,3 +1,4 @@
+// trocar o endpoint para conectar ao da empresa
 
 const { Pool } = require('pg');
 const pool = new Pool({

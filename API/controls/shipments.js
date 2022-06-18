@@ -1,24 +1,31 @@
-const conex = require('../conex')
+// ANALISAR O DATABASE E TROCAR TODAS AS INFOS DE PT_BR para EN_US
+// exemplo: data_envio -> shipping_date
 
-const listarEnvios = async (req, res) => {
+
+const connect = require('../connect')
+
+const shipmentsList = async (req, res) => {
+    // não utilizou essa request?
     const { data_envio } = req.body
     try {
-        const query = `SELECT m.id, c.nome,c.numero, m.msg, m.data_criado, m.data_envio,m.status from shipments m
-left join contacts c on m.id_contato = c.id`
-        let { rows: shipments } = await conex.query(query)
+        const query = `SELECT m.id, c.nome,c.numero, m.msg, m.data_criado, m.data_envio, m.status FROM shipments m 
+        LEFT JOIN contacts c on m.id_contato = c.id`
+        let { rows: shipments } = await connect.query(query)
         return res.status(200).json(shipments)
     } catch (error) {
         return res.status(400).json(error.message)
     }
 
 }
-const filtrarData = async (req, res) => {
-    const {
-        data_envio,
-    } = req.body
+
+// este filtar não esta conseguindo filtrar 
+const dataFilter = async (req, res) => {
+    //qual o motivo desta requisição e porquê esta fazendo a mesma?
+    const { data_envio } = req.body
 
     try {
-        const { rows: messageEn } = await conex.query(`select * from shipments`)
+        //onde a requisição data_envio se aplicaria nesta query?
+        const { rows: messageEn } = await connect.query(`SELECT * FROM shipments`)
         if (messageEn.rowCount === 0) {
             return res.status(404).json('mensagem não encontrada')
         }
@@ -29,6 +36,6 @@ const filtrarData = async (req, res) => {
     }
 }
 module.exports = {
-    listarEnvios,
-    filtrarData
+    shipmentsList,
+    dataFilter
 }

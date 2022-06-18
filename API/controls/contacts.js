@@ -1,11 +1,14 @@
-const conex = require('../conex')
+// ANALISAR O DATABASE E TROCAR TODAS AS INFOS DE PT_BR para EN_US
+// exemplo: id_contato -> id_contact
+
+const connect = require('../connect')
 const fs = require('fs/promises')
-const listarContatos = async (req, res) => {
+const contactList = async (req, res) => {
     try {
-        const { rows: contacts } = await conex.query('SELECT * FROM contacts');
-        for (const contato of contacts) {
-            const { rows: shipments } = await conex.query('select * from shipments where id_contato = $1', [contato.id]);
-            contato.shipments = shipments
+        const { rows: contacts } = await connect.query('SELECT * FROM contacts');
+        for (const contact of contacts) {
+            const { rows: shipments } = await connect.query('SELECT * FROM shipments WHERE id_contato = $1', [contact.id]);
+            contact.shipments = shipments
         }
         return res.status(200).json(contacts);
 
@@ -14,7 +17,7 @@ const listarContatos = async (req, res) => {
     };
 };
 
-const cadastrarContatos = async (req, res) => {
+const contactCreate = async (req, res) => {
     const { nome, numero, id } = req.body
     if (!nome) {
         return res.status(400).json('O campo nome é obrigatório')
@@ -27,28 +30,28 @@ const cadastrarContatos = async (req, res) => {
     }
     try {
         const query = 'INSERT INTO contacts (id, nome, numero) values ($1,$2, $3)'
-        const contato = await conex.query(query, [id, nome, numero])
-        if (contato.rowCount === 0) {
-            return res.status(400).json('Não foi possível cadatrar autor')
+        const contact = await connect.query(query, [id, nome, numero])
+        if (contact.rowCount === 0) {
+            return res.status(400).json('Não foi possível cadatrar contato')
         }
-        return res.status(200).json('autor cadastrado com sucesso')
+        return res.status(200).json('contato cadastrado com sucesso')
 
     } catch (error) {
         return res.status(404).json(error.message)
     }
 }
-const deletarContato = async (req, res) => {
+const contactDelete = async (req, res) => {
     const { id } = req.params;
     try {
-        const contato = await conex.query('SELECT * FROM contacts WHERE id = $1', [id])
+        const contact = await connect.query('SELECT * FROM contacts WHERE id = $1', [id])
 
-        if (contato.rowCount === 0) {
+        if (contact.rowCount === 0) {
             return res.status(404).json('esse usuario não foi encontrado')
         }
         const query = 'DELETE FROM contacts WHERE id = $1'
-        const contatoExcluido = await conex.query(query, [id])
-        if (contatoExcluido.rowCount === 0) {
-            return res.status(404).json('não foi possível excluir este autor')
+        const deletedContact = await connect.query(query, [id])
+        if (deletedContact.rowCount === 0) {
+            return res.status(404).json('não foi possível excluir este contato')
         }
 
         return res.status(200).json('contato excluido com sucesso')
@@ -61,7 +64,7 @@ const deletarContato = async (req, res) => {
 
 
 module.exports = {
-    listarContatos,
-    cadastrarContatos,
-    deletarContato
+    contactList,
+    contactCreate,
+    contactDelete
 }
