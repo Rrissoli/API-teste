@@ -4,12 +4,11 @@ const { listarEnvios, filtrarData } = require('../controls/shipments/shipments')
 
 
 
-
 const router = express()
 
 //contatos
 router.get('/contacts', listarContatos);
-router.post('/contacts', cadastrarContatos);
+
 router.delete('/contacts/:id', deletarContato)
 
 
