@@ -11,6 +11,23 @@ left join contacts c on m.id_contato = c.id`
         return res.status(400).json(error.message)
     }
 }
+const cadastrarMensagem = async (req, res) => {
+    const { id, msg, data_criado, data_envio, status } = req.body
+    if (!id) {
+        return res.status(400).json('Precisamos do id aleatório')
+    }
+    try {
+        const query = 'INSERT INTO shipments (id,msg, data_criado, data_envio, status) values ($1,$2, $3, $4, $5)'
+        const contato = await conex.query(query, [id, msg, data_criado, data_envio, status])
+        if (contato.rowCount === 0) {
+            return res.status(400).json('Não foi possível cadatrar autor')
+        }
+        return res.status(200).json('mensagem cadastrado com sucesso')
+
+    } catch (error) {
+        return res.status(404).json(error.message)
+    }
+}
 const filtrarData = async (req, res) => {
     const {
         data_envio,
@@ -37,5 +54,6 @@ const filtrarData = async (req, res) => {
 module.exports = {
     listarEnvios,
     filtrarData,
+    cadastrarMensagem
 
 }

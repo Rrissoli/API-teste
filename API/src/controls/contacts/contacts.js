@@ -31,7 +31,7 @@ const cadastrarContatos = async (req, res) => {
         if (contato.rowCount === 0) {
             return res.status(400).json('Não foi possível cadatrar autor')
         }
-        return res.status(200).json('autor cadastrado com sucesso')
+        return res.status(200).json('contato cadastrado com sucesso')
 
     } catch (error) {
         return res.status(404).json(error.message)
