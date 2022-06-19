@@ -3,16 +3,15 @@ const { listarContatos, cadastrarContatos, deletarContato } = require('../contro
 const { listarEnvios, filtrarData } = require('../controls/shipments/shipments')
 
 
-
 const router = express()
 
 //contatos
 router.get('/contacts', listarContatos);
-
+router.post('/contacts', cadastrarContatos);
 router.delete('/contacts/:id', deletarContato)
 
 
 //Envios
 router.get('/shipments', listarEnvios)
-router.get('/data', filtrarData)
+router.get('/filtrarData', filtrarData)
 module.exports = router

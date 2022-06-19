@@ -1,0 +1,21 @@
+curl --request GET \
+  --url http://localhost:3000/shipments
+  --preview: 
+	
+		"id": "4d822388-3454-446b-80c9-6943e7862502",
+		"nome": "Raphael Rissoli",
+		"numero": "+5561983830537",
+		"msg": "produto1",
+		"data_criado": "2022-06-17T23:44:01.161Z",
+		"data_envio": "2022-06-19T03:00:00.000Z",
+		"status": "enviado   "
+	
+	
+		"id": "acf163fb-6388-49b9-8abe-2c03641f0a3d",
+		"nome": "Raphael Rissoli",
+		"numero": "+5561983830537",
+		"msg": "produto3434",
+		"data_criado": "2022-06-18T00:23:50.212Z",
+		"data_envio": "2022-08-19T03:00:00.000Z",
+		"status": "pendente  "
+	

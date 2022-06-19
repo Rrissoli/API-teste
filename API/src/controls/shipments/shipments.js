@@ -1,7 +1,7 @@
 const conex = require('../../database/conex')
-
+const { format } = require('date-fns')
 const listarEnvios = async (req, res) => {
-    const { data_envio } = req.body
+
     try {
         const query = `SELECT m.id, c.nome,c.numero, m.msg, m.data_criado, m.data_envio,m.status from shipments m
 left join contacts c on m.id_contato = c.id`
@@ -15,9 +15,15 @@ const filtrarData = async (req, res) => {
     const {
         data_envio,
     } = req.body
+    if (!data_envio) {
+        return res.status(404).json('infrome a data a ser filtrada')
+    }
+    const date = new Date(data_envio);
+    const pattern = 'd.M.yyyy HH:mm:ss.SSS';
+    const output = format(date, pattern)
 
     try {
-        const { rows: messageEn } = await conex.query(`select * from shipments`)
+        const { rows: messageEn } = await conex.query(`select * from shipments WHERE data_envio ILIKE '%$1%'`, [output])
         if (messageEn.rowCount === 0) {
             return res.status(404).json('mensagem não encontrada')
         }

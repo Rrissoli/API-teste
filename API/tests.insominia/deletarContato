@@ -1,0 +1,2 @@
+curl --request DELETE \
+  --url http://localhost:3000/contacts/1ab04872-4c0f-433f-93ae-72326bf73529
