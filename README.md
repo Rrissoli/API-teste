@@ -83,7 +83,7 @@ Atualização no momento de cadastro.
 
 <p>A funcionalidade de filtrar por data foi implementada , porém,  quando fui utilizar o código quebrou por conta da lib utilizada por mim ( npm data-fns), pois ela transformava em date , e no meu banco só aceitava modelo "timestamp", como meu tempo estava escasso , optei por deixar por final e não foi implementado com sucesso. </p>
 
-<img src='API-teste\data.PNG'/>
+<img src='data.PNG'/>
 
 ---
 
@@ -92,7 +92,7 @@ Atualização no momento de cadastro.
 <p>A saga de tentativas de me conectar com a Api fornecida começou após eu terminar de estruturar a minha Api(a que conversa com o banco de dados).
 Confesso que não sabia por onde começar, por não ter feito nenhum tipo de conexão api com api.
 Comecei minha pesquisa e achei uma lib chamada axius que faz essa conexão, passei boa parte do tempo dado , estudando como faria para consumir e enviar dados. Isto consumiu muito do meu tempo.</p>
-<img src='API-teste\a.PNG'>
+<img src='a.PNG'>
 <br>
 <p>Após algumas horas tentando me conectar com a Api fornecida:</p>
 ```javascript
